@@ -141,7 +141,7 @@ int correct(char str[], int MAX)
         printf("Error at column %d '%c': unexpected token\n", i, str[i]);
         exit(0);
     }
-
+    printf("Input is correct\n(case insensitive and ignoring whitespace)\n");
     return k;
 }
 
