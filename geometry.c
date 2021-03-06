@@ -25,7 +25,7 @@ int check_point(char input_str[], int i, int* k)
     return i;
 }
 
-int correct(char input_str[])
+int correct_str(char input_str[])
 {
     char check_str[] = {'c', 'i', 'r', 'c', 'l', 'e'};
     int i = 0, j = 0, k = 0, g = 0;
@@ -135,7 +135,7 @@ int correct(char input_str[])
     return k;
 }
 
-void perimeter(char* output_str)
+/*void perimeter(char* output_str)
 {
     int i = 0, rad;
     float p;
@@ -163,7 +163,7 @@ void area(char* output_str)
     rad = atoi(&output_str[i]);
     s = M_PI * rad * rad;
     printf("area = %.3f\n", s);
-}
+}*/
 
 void str_copy(char input_str[], char* output_str)
 {
@@ -219,13 +219,13 @@ int main()
 
     fgets(input_str, max_str, stdin);
 
-    size_output_str = correct(input_str);
+    size_output_str = correct_str(input_str);
     output_str = calloc(size_output_str, sizeof(char));
     str_copy(input_str, output_str);
     free(input_str);
     output(output_str);
 
-    perimeter(output_str);
-    area(output_str);
+    //perimeter(output_str);
+    //area(output_str);
     return 0;
 }
