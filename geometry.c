@@ -14,11 +14,52 @@ int skip_space(char input_str[], int i)
 
 int check_point(char input_str[], int i, int* k)
 {
+    int j = 0;
     if (input_str[i] == '-') {
         i++;
         k++;
     }
     if (isdigit(input_str[i]) == 0) {
+        printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
+        exit(0);
+    }
+    while ((isdigit(input_str[i]) > 0) || (input_str[i] == '.')) {
+        if ((input_str[i] == '.') && (j == 0)) {
+            j = i;
+        }
+        i++;
+        k++;
+        if ((input_str[i] == '.') && (j > 0)) {
+            printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
+            exit(0);
+        }
+    }
+    if ((input_str[j] == '.') && (isdigit(input_str[j + 1]) == 0)) {
+        printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
+        exit(0);
+    }
+    return i;
+}
+
+int check_rad(char input_str[], int i, int* k)
+{
+    int j = 0;
+    if (isdigit(input_str[i]) == 0) {
+        printf("Error at column %d '%c': expected '<unsigned double>'\n", i, input_str[i]);
+        exit(0);
+    }
+    while ((isdigit(input_str[i]) > 0) || (input_str[i] == '.')) {
+        if ((input_str[i] == '.') && (j == 0)) {
+            j = i;
+        }
+        i++;
+        k++;
+        if ((input_str[i] == '.') && (j > 0)) {
+            printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
+            exit(0);
+        }
+    }
+    if ((input_str[j] == '.') && (isdigit(input_str[j + 1]) == 0)) {
         printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
         exit(0);
     }
@@ -28,7 +69,7 @@ int check_point(char input_str[], int i, int* k)
 int correct_str(char input_str[])
 {
     char check_str[] = {'c', 'i', 'r', 'c', 'l', 'e'};
-    int i = 0, j = 0, k = 0, g = 0;
+    int i = 0, k = 0, g = 0;
     i = skip_space(input_str, i);
     for (; (input_str[i] != '(') && (isalpha(input_str[i]) > 0); i++, k++, g++) {
         if (check_str[g] != (tolower(input_str[i]))) {
@@ -46,44 +87,9 @@ int correct_str(char input_str[])
     }
     i = skip_space(input_str, i);
     i = check_point(input_str, i, &k);
-    while ((isdigit(input_str[i]) > 0) || (input_str[i] == '.')) {
-        if ((input_str[i] == '.') && (j == 0)) {
-            j++;
-        }
-        i++;
-        k++;
-        if ((input_str[i] == '.') && (j > 0)) {
-            printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
-            exit(0);
-        }
-    }
     k++;
-    while ((isdigit(input_str[i]) == 0) && (input_str[i] != '-')) {
-        if (input_str[i] == ' ') {
-            i++;
-        } else {
-            printf("Error at column %d '%c'", i, input_str[i]);
-            printf(": expected '<double>' or 'space'\n");
-            exit(0);
-        }
-    }
+    i = skip_space(input_str, i);
     i = check_point(input_str, i, &k);
-    j = 0;
-    while ((isdigit(input_str[i]) > 0) || (input_str[i] == '.')) {
-        if ((input_str[i] == '.') && (j == 0)) {
-            j = i;
-        }
-        i++;
-        k++;
-        if ((input_str[i] == '.') && (j > 0)) {
-            printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
-            exit(0);
-        }
-    }
-    if ((input_str[j] == '.') && (isdigit(input_str[j + 1]) == 0)) {
-        printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
-        exit(0);
-    }
     i = skip_space(input_str, i);
     if (input_str[i] != ',') {
         printf("Error at column %d '%c': expected ','\n", i, input_str[i]);
@@ -93,31 +99,8 @@ int correct_str(char input_str[])
         k++;
     }
     k++;
-    while (isdigit(input_str[i]) == 0) {
-        if (input_str[i] == ' ') {
-            i++;
-        } else {
-            printf("Error at column %d '%c'", i, input_str[i]);
-            printf(": expected '<double>' or 'space'\n");
-            exit(0);
-        }
-    }
-    j = 0;
-    while ((isdigit(input_str[i]) > 0) || (input_str[i] == '.')) {
-        if ((input_str[i] == '.') && (j == 0)) {
-            j = i;
-        }
-        i++;
-        k++;
-        if ((input_str[i] == '.') && (j > 0)) {
-            printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
-            exit(0);
-        }
-    }
-    if ((input_str[j] == '.') && (isdigit(input_str[j + 1]) == 0)) {
-        printf("Error at column %d '%c': expected '<double>'\n", i, input_str[i]);
-        exit(0);
-    }
+    i = skip_space(input_str, i);
+    i = check_rad(input_str, i, &k);
     i = skip_space(input_str, i);
     if (input_str[i] != ')') {
         printf("Error at column %d '%c': expected ')'\n", i, input_str[i]);
@@ -214,12 +197,11 @@ int main()
     int max_str = 1000, size_output_str;
     char* input_str = NULL;
     input_str = calloc(max_str, sizeof(char));
-
     char* output_str = NULL;
 
     fgets(input_str, max_str, stdin);
-
     size_output_str = correct_str(input_str);
+
     output_str = calloc(size_output_str, sizeof(char));
     str_copy(input_str, output_str);
     free(input_str);
