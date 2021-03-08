@@ -1,10 +1,10 @@
-#include <ctype.h>
-#include <math.h>
+//#include <ctype.h>
+//#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+//#include <string.h>
 
-int skip_space(char input_str[], int i)
+/*int skip_space(char input_str[], int i)
 {
     while (input_str[i] == ' ') {
         i++;
@@ -118,7 +118,7 @@ int correct_str(char input_str[])
     return k;
 }
 
-/*void perimeter(char* output_str)
+void perimeter(char* output_str)
 {
     int i = 0, rad;
     float p;
@@ -146,7 +146,7 @@ void area(char* output_str)
     rad = atoi(&output_str[i]);
     s = M_PI * rad * rad;
     printf("area = %.3f\n", s);
-}*/
+}
 
 void str_copy(char input_str[], char* output_str)
 {
@@ -190,7 +190,7 @@ void output(char* output_str)
 {
     fputs(output_str, stdout);
     printf("\n");
-}
+}*/
 
 int main()
 {
@@ -207,7 +207,7 @@ int main()
     free(input_str);
     output(output_str);
 
-    //perimeter(output_str);
-    //area(output_str);
+    perimeter(output_str);
+    area(output_str);
     return 0;
 }

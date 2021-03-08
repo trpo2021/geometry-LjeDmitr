@@ -153,3 +153,8 @@ void str_copy(char input_str[], char* output_str)
     j++;
     output_str[j] = '\0';
 }
+void output(char* output_str)
+{
+    fputs(output_str, stdout);
+    printf("\n");
+}
