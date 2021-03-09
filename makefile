@@ -40,6 +40,6 @@ $(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/%.o: $(SRC_DIR)/$(LIB_NAME)/%.c
 	gcc -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 clean:
-	$(RM) $(LIB_PATH)
+	$(RM) $(APP_PATH) $(LIB_PATH)
 	find $(OBJ_DIR) -name '*.o' -exec $(RM) '{}' \;
 	find $(OBJ_DIR) -name '*.d' -exec $(RM) '{}' \;
