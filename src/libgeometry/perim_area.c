@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
 #include "geometry.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void perimeter(char* output_str)
 {

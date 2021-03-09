@@ -1,6 +1,6 @@
+#include "libgeometry/geometry.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "libgeometry/geometry.h"
 
 int main()
 {
